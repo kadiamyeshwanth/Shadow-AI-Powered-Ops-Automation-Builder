@@ -102,6 +102,43 @@ npm run dev
 
 ---
 
+## 🗺️ Roadmap & Future Development
+
+Shadow is rapidly evolving. Below is the strategic roadmap addressing current limitations and outlining the path to a production-ready enterprise ops platform.
+
+### Phase 1: Security & Execution Foundation (Critical Priorities)
+- **Authentication & Authorization**: Implement JWT-based authentication and MongoDB user scoping to ensure workflows are isolated, secure, and production-ready.
+- **Real Execution Engine**: Transition from visual simulations to actual step execution (e.g., calling APIs, running shell commands, sending Slack messages).
+- **Resilience & Error Handling**: Introduce robust retry logic, circuit breaker patterns, and graceful fallbacks for LLM API failures.
+- **Comprehensive Testing**: Build a safety net with extensive unit and integration tests to prevent prompt-injection or corrupted schemas.
+
+### Phase 2: Core Platform Features
+- **Workflow Versioning & Diffing**: Save previous versions of workflows. Visualize changes (amber for edits, green for additions, red for deletions) and enable one-click rollbacks.
+- **Real Integrations Hub**: Build out native, functional connectors for Slack, GitHub, Jira, SMTP, and generic HTTP webhooks.
+- **Scheduling & Event Triggers**: Support for cron-based scheduling, natural language timing ("every Monday at 9am"), and event-driven webhook triggers.
+- **Community Template Marketplace**: Allow users to publish, clone, and customize public workflow templates using natural language.
+- **Execution Logs & Audit Trails**: Timestamped, step-by-step logging stored in MongoDB with collapsible debug panels (showing inputs, outputs, status, and duration).
+
+### Phase 3: Advanced AI & Agent Orchestration
+- **LLM Agnosticism**: Abstract the AI layer (`LLMProvider`) to support OpenAI GPT-4o, Anthropic Claude, and local models via Ollama, removing vendor lock-in.
+- **Multi-Agent Architecture**: Decompose generations using a LangGraph-style approach: a Planner agent, a Builder agent, and a Validator agent.
+- **RAG-Powered Context Memory**: Implement vector storage (Qdrant/Chroma) to retrieve a user's past workflows, ensuring consistent naming conventions and integration preferences.
+- **Self-Healing Workflows**: Automatically trigger AI-driven remediation when a step fails ("Step X failed... Suggest a fix"), displaying inline suggestions with an "Apply fix" action.
+
+### Phase 4: Infrastructure, DX & Observability
+- **Docker Compose Local Stack**: Simplify onboarding with a single `docker-compose up` command for the backend, frontend, and database.
+- **CI/CD Pipelines**: Automate linting (Ruff, ESLint), testing, and deployments (Render, Vercel) via GitHub Actions.
+- **WebSocket Streaming**: Stream workflow JSON generation in real-time, allowing the canvas to render progressively for a faster, more responsive UX.
+- **Observability Stack**: Integrate Sentry for error tracking, structured JSON logging (`structlog`), and a Prometheus `/metrics` endpoint.
+- **Rate Limiting**: Protect endpoints using `slowapi` to enforce per-IP limits and daily quotas for LLM calls.
+
+### Refactoring & Code Quality
+- **Separation of Concerns**: Decouple LangChain prompt templates, parser services, and schema validation in the backend.
+- **State Management Split**: Separate UI state, workflow data, and simulation logic into distinct Redux slices.
+- **Deterministic ROI Calculation**: Move ROI estimations from LLM hallucinations to backend deterministic math based on user-defined inputs.
+
+---
+
 ## API Endpoints
 
 | Method | Endpoint | Description |
